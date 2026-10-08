@@ -2,13 +2,11 @@
 .ipynb_checkpoints/
 __pycache__/
 
-# Bab 7-16 belum dipublikasikan
-notebooks/07_*.ipynb
-notebooks/08_*.ipynb
+# Bab 9-16 belum dipublikasikan
 notebooks/09_*.ipynb
 notebooks/1[0-6]_*.ipynb
 notebooks/framework.py
 
-# Dataset besar yang tidak dipakai Bab 1-6 (diunduh otomatis oleh fetch() bila dibutuhkan)
+# Dataset besar yang tidak dipakai Bab 1-8 (diunduh otomatis oleh fetch() bila dibutuhkan)
 notebooks/data/*
 !notebooks/data/mnist.npz

@@ -1,4 +1,4 @@
-# Grokking Deep Learning — Bab 1–6
+# Grokking Deep Learning — Bab 1–8
 
 | | |
 |---|---|
@@ -6,9 +6,9 @@
 | **NIM** | 101032300243 |
 | **Kelas** | BS1TK-47-REG-G13 |
 
-Repositori ini berisi rangkuman dan implementasi kode Python untuk **Bab 1 sampai Bab 6** dari buku *Grokking Deep Learning* (Andrew W. Trask, Manning, 2019). Setiap bab disajikan dalam satu Jupyter Notebook yang menggabungkan penjelasan konsep (Bahasa Indonesia) dengan contoh kode, visualisasi, latihan, dan contoh solusinya.
+Repositori ini berisi rangkuman dan implementasi kode Python untuk **Bab 1 sampai Bab 8** dari buku *Grokking Deep Learning* (Andrew W. Trask, Manning, 2019). Setiap bab disajikan dalam satu Jupyter Notebook yang menggabungkan penjelasan konsep (Bahasa Indonesia) dengan contoh kode, visualisasi, latihan, dan contoh solusinya.
 
-Sesuai filosofi buku, semua neural network dibangun **dari nol hanya dengan NumPy** — mulai dari satu bobot, gradient descent, hingga deep neural network pertama dengan backpropagation.
+Sesuai filosofi buku, semua neural network dibangun **dari nol hanya dengan NumPy** — mulai dari satu bobot, gradient descent, deep neural network pertama dengan backpropagation, hingga regularisasi (dropout) dan mini-batch gradient descent.
 
 ---
 
@@ -22,8 +22,10 @@ Sesuai filosofi buku, semua neural network dibangun **dari nol hanya dengan NumP
 6. [Bab 4 — Gradient Descent](#bab-4--gradient-descent)
 7. [Bab 5 — Generalizing Gradient Descent](#bab-5--generalizing-gradient-descent)
 8. [Bab 6 — Backpropagation](#bab-6--backpropagation)
-9. [Dataset](#dataset)
-10. [Referensi](#referensi)
+9. [Bab 7 — How to Picture Neural Networks](#bab-7--how-to-picture-neural-networks)
+10. [Bab 8 — Regularization and Batching](#bab-8--regularization-and-batching)
+11. [Dataset](#dataset)
+12. [Referensi](#referensi)
 
 ---
 
@@ -39,8 +41,10 @@ Grokking Deep Learning/
     ├── 04_Gradient_Descent.ipynb
     ├── 05_Generalizing_Gradient_Descent.ipynb
     ├── 06_Backpropagation.ipynb
+    ├── 07_Picturing_Neural_Networks.ipynb
+    ├── 08_Regularization_and_Batching.ipynb
     └── data/
-        └── mnist.npz         # dataset MNIST (dipakai di Bab 5)
+        └── mnist.npz         # dataset MNIST (dipakai di Bab 5 & 8)
 ```
 
 ## Instalasi & Cara Menjalankan
@@ -51,7 +55,7 @@ cd notebooks
 jupyter notebook
 ```
 
-Bab 1–4 dan 6 memakai data mainan yang didefinisikan langsung di notebook. Bab 5 memakai MNIST melalui fungsi `fetch()`, yang membaca `notebooks/data/mnist.npz` dan otomatis mengunduhnya dari mirror resmi Keras jika file belum ada.
+Bab 1–4, 6, dan 7 memakai data mainan yang didefinisikan langsung di notebook. Bab 5 dan 8 memakai MNIST melalui fungsi `fetch()`, yang membaca `notebooks/data/mnist.npz` dan otomatis mengunduhnya dari mirror resmi Keras jika file belum ada.
 
 ---
 
@@ -195,12 +199,57 @@ Membangun **deep neural network pertama** pada *streetlight problem*.
 
 ---
 
+## Bab 7 — How to Picture Neural Networks
+
+📓 [`07_Picturing_Neural_Networks.ipynb`](notebooks/07_Picturing_Neural_Networks.ipynb)
+
+*In your head and on paper* — tidak ada algoritma baru; bab ini menyederhanakan cara membayangkan neural network sebagai **vektor dan matriks**, bukan node satu per satu.
+
+**Materi:**
+1. Saatnya menyederhanakan
+2. Correlation summarization (lokal & global)
+3. Visualisasi yang terlalu rumit vs disederhanakan
+4. Menyederhanakan lebih jauh (cukup urutan layer, mis. `3 → 4 → 1`)
+5. Visualisasi dengan huruf (notasi aljabar)
+6. Menghubungkan variabel: gambar ↔ huruf ↔ kode
+7. Pentingnya alat visualisasi
+
+**Rangkuman:**
+- **Correlation summarization**: neural network mencari korelasi langsung & tidak langsung antara layer input dan output.
+- Network dapat ditulis ringkas sebagai aljabar: `l2 = relu(l0 · W0) · W1`.
+- Gambar, notasi aljabar, dan kode Python adalah tiga representasi yang **setara**.
+
+---
+
+## Bab 8 — Regularization and Batching
+
+📓 [`08_Regularization_and_Batching.ipynb`](notebooks/08_Regularization_and_Batching.ipynb)
+
+*Learning signal and ignoring noise* — menerapkan network 3 layer ke MNIST dan mengatasi **overfitting**.
+
+**Materi:**
+1. Network 3 layer (`784 → 40 → 10`) pada MNIST
+2. Memorization vs generalization
+3. Overfitting & dari mana asalnya (analogi cetakan garpu)
+4. Regularisasi paling sederhana: early stopping
+5. Regularisasi standar industri: dropout
+6. Mengapa dropout bekerja: ensembling
+7. Dropout dalam kode & evaluasinya pada MNIST
+8. Batch (mini-batch) gradient descent
+
+**Rangkuman:**
+- Tanpa regularisasi, akurasi training mencapai 100% tetapi akurasi test turun dari ±80% ke ±71% — **overfitting**.
+- **Early stopping** dan **dropout** menjaga network tetap mempelajari sinyal, bukan noise (test ±80–82%).
+- **Mini-batch GD** merata-ratakan update beberapa contoh sekaligus → training lebih cepat dan stabil, memungkinkan alpha lebih besar.
+
+---
+
 ## Dataset
 
 | Bab | Dataset | Sumber |
 |---|---|---|
-| 1–4, 6 | Data mainan (toes/wlrec/nfans, streetlight, dll.) | Didefinisikan di notebook |
-| 5 | MNIST (`mnist.npz`) | Mirror resmi Keras |
+| 1–4, 6, 7 | Data mainan (toes/wlrec/nfans, streetlight, dll.) | Didefinisikan di notebook |
+| 5, 8 | MNIST (`mnist.npz`) | Mirror resmi Keras |
 
 ## Library yang Digunakan
 
